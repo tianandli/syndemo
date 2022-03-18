@@ -30,12 +30,15 @@ public class IntLock implements Runnable {
             //下面的if和else相当于构建了一个死锁状态,但是thread2被中断了interrupt,所以线程2主动的会退出,只有线程1是进入线程体内执行了run方法的
             //至于是线程1先退出还是线程2先退出,完全取决于线程1先抢到cpu还是线程2先抢到cpu
             if(lock == 1){
-                lock1.lockInterruptibly();
+                lock1.lockInterruptibly();//尝试获取锁,但优先响应中断
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                System.out.println(Thread.currentThread().getName()+"--11111");
+                //主线程中给线程二设置了中断，这时候线程二获取了lock2的监听器（也就是锁），所以线程一在走到这里去获取lock2的监听器的时候，会响应中断，
+                //这时候线程二就主动退出了，使得线程一能够走下去。避免了死锁的情况。
                 lock2.lockInterruptibly();
                 System.out.println("11111111");
             }else{
@@ -45,13 +48,14 @@ public class IntLock implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                System.out.println(Thread.currentThread().getName()+"--22222");
                 lock1.lockInterruptibly();
                 System.out.println("22222222");
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            if(lock1.isHeldByCurrentThread()){
+            if(lock1.isHeldByCurrentThread()){//查询当前线程是否保持此锁定
                 lock1.unlock();
             }
             if(lock2.isHeldByCurrentThread()){

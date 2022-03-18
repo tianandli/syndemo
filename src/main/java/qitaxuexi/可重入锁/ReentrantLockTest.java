@@ -17,10 +17,10 @@ public class ReentrantLockTest extends Thread {
 
     @Override
     public void run() {
-        for (int j = 0; j < 1000; j++) {
-            lock.lock();
+        for (int j = 0; j < 5; j++) {
+            lock.lock();//线程一和线程二都会在各自的线程里走到这里，然后线程一获取到了lock的监视器，线程一就去做加一的操作，线程二等待，线程一走完后线程二再执行。
             try {
-                System.out.println(this.getName() + " " + i);
+                System.out.println(this.getName() + " --- " + i);
                 i++;
             } finally {
                 lock.unlock();
@@ -42,7 +42,7 @@ public class ReentrantLockTest extends Thread {
         thread2.start();
         thread1.join();
         thread2.join();
-        System.out.println("i的最终值是："+i);
+        System.out.println(Thread.currentThread().getName()+"   i的最终值是："+i);
     }
 }
 

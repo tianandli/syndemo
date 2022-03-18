@@ -14,8 +14,9 @@ public class KeChongRuLock implements Runnable {
     public static int i = 0;
     @Override
     public void run() {
-        for (int j = 0; j < 1000; j++) {
+        for (int j = 0; j < 2; j++) {
             //通过可重入锁来使得i的操作是安全的。下面的lock.lock();是可以多次加锁的，下面的解锁也要对应次数一致
+            //这里有两个线程：线程一和线程二，都要去获取lock对象的监视器，哪个获取到了哪个就能进来。
             lock.lock();
             try {
                 System.out.println(Thread.currentThread().getName() + " " + i);
@@ -31,6 +32,6 @@ public class KeChongRuLock implements Runnable {
         Thread thread2 = new Thread(new KeChongRuLock(),"线程二");
         thread1.start();
         thread2.start();
-        System.out.println("i的最终值是："+i);
+        System.out.println(Thread.currentThread().getName()+"   i的最终值是："+i);
     }
 }

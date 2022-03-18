@@ -24,7 +24,7 @@ public class Test {
                     try {
                         System.out.println("[[[[[[");
                         /**
-                         * 这里的休眠时间要大于下面的2秒。线程在休眠，这里会报错进入catch。
+                         * 这里的休眠时间要大于下面的2秒。线程在休眠，这里会报错进入catch。主线程休眠2秒后给线程设置了中断状态，所以这里会直接进入catch
                          */
                         Thread.sleep(3000);
                         System.out.println("】】】】】");
@@ -41,6 +41,8 @@ public class Test {
          * 线程在休眠的时候（上面休眠了3秒），下面那行代码将线程中断了，这时候，上面那行休眠的代码（休眠3秒）会抛异常进入catch里面
          */
         Thread.sleep(2000);
+        System.out.println("----33===");
         thread.interrupt();
+        System.out.println("----44===");
     }
 }

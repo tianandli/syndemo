@@ -19,7 +19,7 @@ public class CountDownLatchDemo implements Runnable {
     public void run() {
         try {
             Thread.sleep(new Random().nextInt(10) * 1000);//模拟检查任务
-            System.out.println("检查完成");
+            System.out.println(Thread.currentThread().getName()+"检查完成");
             end.countDown();//一个线程完成，计数器就减一
         } catch (InterruptedException e) {
             e.printStackTrace();
