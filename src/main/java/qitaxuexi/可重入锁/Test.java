@@ -1,7 +1,7 @@
 package qitaxuexi.可重入锁;
 
 /**0
- * 功能描述：
+ * 功能描述：a
  *
  * @author: lijie
  * @date: 2021/6/29 13:56
