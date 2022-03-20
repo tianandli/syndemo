@@ -10,7 +10,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * @version: V1.0
  */
 public class FairLock implements Runnable {
-    public static ReentrantLock lock = new ReentrantLock(true);//这里只要设置为true就是公平锁.具体效果看控制台
+    //这里只要设置为true就是公平锁.具体效果看控制台。也就是线程一和线程二能够公平的获取lock的监视器。
+    public static ReentrantLock lock = new ReentrantLock(true);
     @Override
     public void run() {
         for (int i = 0; i < 100000; i++) {
