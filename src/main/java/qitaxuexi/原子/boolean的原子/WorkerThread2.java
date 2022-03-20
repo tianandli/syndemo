@@ -14,6 +14,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @version: V1.0
  */
 public class WorkerThread2 implements Runnable{
+    /**
+     * 描述：能够保证在高并发的情况下只有一个线程能够访问这个属性值。（类似我们之前所说的volatile）。
+     * 一般情况下，我们使用 AtomicBoolean 高效并发处理 “只初始化一次” 的功能要求
+     */
     private static AtomicBoolean exist = new AtomicBoolean(false);//注意这里要用static修饰
 
     @Override
