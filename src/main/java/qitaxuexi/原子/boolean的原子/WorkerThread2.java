@@ -23,6 +23,7 @@ public class WorkerThread2 implements Runnable{
     @Override
     public void run() {
         if(exist.compareAndSet(false, true)){
+            // 这里放置初始化代码....
             System.out.println(Thread.currentThread().getName() + "进来了，将exist设置为了false");
             try {
                 Thread.sleep(2000);
